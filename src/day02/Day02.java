@@ -28,6 +28,8 @@ public class Day02 {
 			System.out.print(secondTask.getButtonByLine(s));
 		}
 		
+		System.out.println();
+		
 		
 		
 
