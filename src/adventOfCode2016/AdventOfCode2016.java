@@ -9,6 +9,8 @@ public class AdventOfCode2016 {
         day02.Day02.solve();
         System.out.println("~~~DAY-03~~~");
         day03.Day03.solve();
+        System.out.println("~~~DAY-04~~~");
+        day04.Day04.solve();
 
     }
 
