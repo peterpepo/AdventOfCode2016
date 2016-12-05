@@ -2,6 +2,8 @@ package day05;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PasswordUtils {
 
@@ -120,6 +122,28 @@ public class PasswordUtils {
             resultPassword.append(c);
         }
         return resultPassword.toString();
+    }
+    
+    public String getSecondLevelDoorKeyMulti(String doorNumber) {
+        Md5Sync md5s = Md5Sync.getInstance();
+
+        for(int i=1; i<=4; i++) {
+            new Md5Thread(doorNumber).start();
+        }
+
+        
+        while(md5s.isPasswordComplete()==false) {
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(PasswordUtils.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        
+        return md5s.getPassword();
+        
     }
 
 }

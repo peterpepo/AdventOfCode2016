@@ -7,6 +7,9 @@ public class Day05 {
     public static void solve() {
         System.out.println("First puzzle: " + new PasswordUtils().getDoorKey(PUZZLE_INPUT));
         System.out.println("Second puzzle: " + new PasswordUtils().getSecondLevelDoorKey(PUZZLE_INPUT));
+        
+        // Multi thread experimental solution
+//        System.out.println("Second puzzle: " + new PasswordUtils().getSecondLevelDoorKeyMulti(PUZZLE_INPUT));
 
     }
 
