@@ -13,6 +13,8 @@ public class AdventOfCode2016 {
         day04.Day04.solve();
         System.out.println("~~~DAY-05~~~");
         day05.Day05.solve();
+        System.out.println("~~~DAY-06~~~");
+        day06.Day06.solve();
 
     }
 
