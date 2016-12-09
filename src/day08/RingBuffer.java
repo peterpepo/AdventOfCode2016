@@ -19,6 +19,7 @@ public class RingBuffer {
             if (calcPos < 0) {
                 calcPos += buffer.length;
             }
+            
             retArray[i] = buffer[calcPos];
         }
 
