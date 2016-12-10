@@ -1,18 +1,25 @@
 package day08;
 
+import commons.PuzzleInputReader;
+
 public class Day08 {
 
     public static void solve() {
-        Display d = new Display(5, 60);
-        d.createRectangle(2, 3);
-        System.out.println(d);
-        d.rotateColumn(1, 1);
-        System.out.println(d);
-        d.rotateRow(0, 4);
-        System.out.println(d);
-        d.rotateColumn(1, 1);
-        System.out.println(d);
-        System.out.println(d.getOnCount());
+        Display sixByFiftyDisplay = new Display(6, 50);
+        CardReader cardReader = new CardReader(sixByFiftyDisplay);
+
+        PuzzleInputReader testPuzzleInput = new PuzzleInputReader("src/day08/Day08-puzzleInput.txt");
+        for (String s : testPuzzleInput.getListOfLines()) {
+            cardReader.processInstruction(s);
+        }
+
+        // FIRST PUZZLE
+        System.out.println("First puzzle: " + sixByFiftyDisplay.getOnCount());
+
+        // SECOND PUZZLE
+        System.out.println("Second puzzle: ");
+        System.out.println(sixByFiftyDisplay);
+
     }
 
 }
