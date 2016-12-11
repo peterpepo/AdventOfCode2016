@@ -5,22 +5,34 @@ import java.util.List;
 
 public class Route {
 
+//    private static Integer minimumLength = Integer.MAX_VALUE;
+    private static Integer minimumLength = 100;
     private Route comingFrom;
     private Step nextStep;
 
     public Route(Route comingFrom, Step nextStep) {
         this.comingFrom = comingFrom;
         this.nextStep = nextStep;
-        System.out.println(nextStep.isValid());
-        if (!alreadyVisited()) {
-//            generateNextSteps();
+//        System.out.println(nextStep.isValid());
+        if (!alreadyVisited() && !nextStep.isSolution()) {
+            if (getVisitedPlaces().size() < minimumLength) {
+                generateNextSteps();
+            }
+        } else {
+            if (nextStep.isSolution()) {
+                System.out.println("solution found! - length: " + this.getVisitedPlaces().size());
+                if (this.getVisitedPlaces().size() < minimumLength) {
+                    minimumLength = getVisitedPlaces().size();
+                }
+//                System.out.println(nextStep);
+            }
         }
     }
 
     public Route(Step nextStep) {
         this.nextStep = nextStep;
         generateNextSteps();
-        System.out.println("route from initial");
+//        System.out.println("route from initial");
     }
 
     public List<Step> getVisitedPlaces() {
@@ -61,13 +73,12 @@ public class Route {
                 takeAwayCombinations.addAll(CombinatoricUtils.getPermutationsList(canBeTakenAway, i));
             }
 
-            for (List<String> ls : takeAwayCombinations) {
-                for (String s : ls) {
-                    System.out.print(s + "+");
-                }
-                System.out.println();
-            }
-
+//            for (List<String> ls : takeAwayCombinations) {
+//                for (String s : ls) {
+//                    System.out.print(s + "+");
+//                }
+//                System.out.println();
+//            }
             for (int i = 0; i < takeAwayCombinations.size(); i++) {
                 // Go up a floor, if we are below 4th -> move every possible combination up there
                 if (nextStep.getCurrentFloor() < 4) {

@@ -17,7 +17,14 @@ public class Step {
     }
 
     public Step(Step base, int newFloor, List<String> addToFloor) {
-        this.floors = new HashMap<Integer, List<String>>(base.floors);
+        // Copy floors
+        for(Integer row: base.floors.keySet()) {
+            List<String> newRow = new ArrayList<>();
+            for(String col:base.floors.get(row)) {
+                newRow.add(col);
+            }
+            floors.put(row, newRow);
+        }
         this.currentFloor = newFloor;
 
         
@@ -25,12 +32,12 @@ public class Step {
 //        System.out.println("adding");
         this.floors.get(base.getCurrentFloor()).removeAll(addToFloor);
 
-        System.out.println(this.getCurrentFloor());
+//        System.out.println(this.getCurrentFloor());
         
-        System.out.println(this);
+//        System.out.println(this);
         // Debug, move away later
         if (this.isSolution()) {
-            System.out.println("solution has been found");
+//            System.out.println("solution has been found");
         }
     }
 
