@@ -28,10 +28,14 @@ public class Route {
 
         if (comingFrom != null) {
             visitedPlaces.addAll(comingFrom.getVisitedPlaces());
-            visitedPlaces.add(comingFrom.nextStep);
+//            visitedPlaces.add(comingFrom.nextStep);
         }
-
+        visitedPlaces.add(nextStep);
         return visitedPlaces;
+    }
+
+    public int getLength() {
+        return this.getVisitedPlaces().size();
     }
 
     public int getLength() {

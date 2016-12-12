@@ -80,11 +80,13 @@ public class Day11 {
         Route puzzleRoute = new Route(initialPuzzleStep);
 
         // QUEUEING
-        Integer minimalLength = 100;
+//        Integer minimalLength = Integer.MAX_VALUE;
+        Integer minimalLength = 50;
         List<Route> queue = new LinkedList<>();
 
         // Start route
-        queue.add(testRoute);
+        queue.add(puzzleRoute);
+//    queue.add(testRoute);
 
         // Process queue
         while (!queue.isEmpty()) {
@@ -92,7 +94,7 @@ public class Day11 {
             Route currentRoute = queue.remove(0);
 
             if (!currentRoute.isSolution()) {
-                if (currentRoute.getLength() < minimalLength) {
+                if (currentRoute.getLength()+1 < minimalLength) {
                     queue.addAll(currentRoute.expand());
                 }
             } else {
