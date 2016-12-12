@@ -11,6 +11,16 @@ public class Step {
     private Map<Integer, List<String>> floors = new HashMap<Integer, List<String>>();
     private int currentFloor;
 
+//    public Integer getValue() {
+//        Integer value;
+//        
+//        for(List<String> floor:floors) {
+//            
+//        }
+//        
+//    }
+    
+    
     public Step(Map<Integer, List<String>> floors, int newFloor) {
         this.floors = floors;
         this.currentFloor = newFloor;
