@@ -6,11 +6,6 @@ import java.util.List;
 
 public class CombinatoricUtils {
 
-//    public static List<List<String>> getPermutations(List<String> sourceList, int length) {
-//        List<List<String>> result = new ArrayList<List<String>>();
-//
-//        
-//    }
     public static List<String> getPermutations(List<String> sourceList, int length) {
         if (length == 1) {
             return sourceList;
