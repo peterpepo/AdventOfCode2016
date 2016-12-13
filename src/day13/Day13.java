@@ -5,6 +5,10 @@ import java.util.List;
 
 public class Day13 {
 
+    /*
+    Uses Lee Algorithm
+    https://en.wikipedia.org/wiki/Lee_algorithm
+    */
     public static void solve() {
 
         int rowNum[] = {-1, 0, 0, 1};
