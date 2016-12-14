@@ -1,8 +1,5 @@
 package day14;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Day14 {
 
     private static final String SALT_PUZZLE = "jlmsuwbz";

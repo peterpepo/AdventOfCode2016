@@ -31,12 +31,7 @@ public class HashUtils {
         Pattern p = Pattern.compile("(" + wantedChar + ")\\1{4,}");
         Matcher m = p.matcher(sourceString);
 
-        // If we find a qintent, return true
-        if (m.find()) {
-            return true;
-        }
-
-        return false;
+        return m.find();
     }
 
     /**

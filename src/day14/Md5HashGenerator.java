@@ -19,6 +19,7 @@ public class Md5HashGenerator implements HashGenerator {
         }
     }
     
+    @Override
     public byte[] getNextHash() {
         md.update((salt + Integer.toString(index++)).getBytes());
         byte[] byteData = md.digest();

@@ -5,12 +5,13 @@ import java.security.NoSuchAlgorithmException;
 
 public class Md5Level2016Generator implements HashGenerator {
 
-    private Md5HashGenerator baseHashGenerator;
+    private final Md5HashGenerator baseHashGenerator;
 
     public Md5Level2016Generator(String salt) {
         this.baseHashGenerator = new Md5HashGenerator(salt);
     }
 
+    @Override
     public byte[] getNextHash() {
         byte[] byteData = baseHashGenerator.getNextHash();
 

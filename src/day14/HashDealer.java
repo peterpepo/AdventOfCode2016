@@ -5,8 +5,8 @@ import java.util.List;
 
 public class HashDealer {
 
-    private HashGenerator hashGen;
-    private List<String> hashBuffer;
+    private final HashGenerator hashGen;
+    private final List<String> hashBuffer;
     private Integer currentHashIndex = -1;
 
     private final Integer BUFFER_CAPACITY = 1000;
