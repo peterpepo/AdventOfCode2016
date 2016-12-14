@@ -6,7 +6,6 @@ import java.util.List;
 public class Day14 {
 
     private static final String SALT_PUZZLE = "jlmsuwbz";
-    private static final Integer MAX_FORWARD = 1000;
 
     public static void solve() {
 
