@@ -209,4 +209,22 @@ public class BuildingConfig {
         }
         return sb.toString();
     }
+    
+    public boolean containsSameItemsAs( Map<Integer, List<String>> floorsOther) {
+//        Map<Integer, List<String>> floorsOther = other.getCopyOfFloors();
+        
+        for(int i=1; i<=4; i++) {
+            for(String item:floorsOther.get(i)) {
+                if(!floors.get(i).contains(item)) {
+                    return false;
+                }
+            }
+            for(String item:floors.get(i)) {
+                if(!floorsOther.get(i).contains(item)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

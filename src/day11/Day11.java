@@ -12,38 +12,37 @@ public class Day11 {
 
         List<QueueNode> queue = new LinkedList<>();
 // TEST
+        List<String> floor1 = new ArrayList<>();
+        floor1.add("HM");
+        floor1.add("LM");
+
+        List<String> floor2 = new ArrayList<>();
+        floor2.add("HG");
+
+        List<String> floor3 = new ArrayList<>();
+        floor3.add("LG");
+
+        List<String> floor4 = new ArrayList<>();
+
+//        // Start Point
 //        List<String> floor1 = new ArrayList<>();
-//        floor1.add("HM");
-//        floor1.add("LM");
+//        floor1.add("TG");
+//        floor1.add("TM");
+//        floor1.add("PG");
+//        floor1.add("SG");
 //
 //        List<String> floor2 = new ArrayList<>();
-//        floor2.add("HG");
+//        floor2.add("PM");
+//        floor2.add("SM");
 //
 //        List<String> floor3 = new ArrayList<>();
-//        floor3.add("LG");
+//        floor3.add("AG");
+//        floor3.add("AM");
+//        floor3.add("RG");
+//        floor3.add("RM");
 //
 //        List<String> floor4 = new ArrayList<>();
 
-        // Start Point
-        List<String> floor1 = new ArrayList<>();
-        floor1.add("TG");
-        floor1.add("TM");
-        floor1.add("PG");
-        floor1.add("SG");
-
-        List<String> floor2 = new ArrayList<>();
-        floor2.add("PM");
-        floor2.add("SM");
-
-        List<String> floor3 = new ArrayList<>();
-        floor3.add("AG");
-        floor3.add("AM");
-        floor3.add("RG");
-        floor3.add("RM");
-
-        List<String> floor4 = new ArrayList<>();
-        
-        
         Map<Integer, List<String>> initialMap = new HashMap<Integer, List<String>>();
         initialMap.put(1, floor1);
         initialMap.put(2, floor2);
@@ -51,6 +50,7 @@ public class Day11 {
         initialMap.put(4, floor4);
         BuildingConfig initialBuildingConfig = new BuildingConfig(initialMap, 1);
 
+//         UNCOMMENT !
         queue.add(new QueueNode(initialBuildingConfig, 0));
 
         // Don't process those, which we have seen
@@ -66,37 +66,28 @@ public class Day11 {
                 break;
             }
 
-            seen.add(buildingConfig.getCopyOfFloors());
-
+//            seen.add(buildingConfig.getCopyOfFloors());
             // Go every possible way
             for (BuildingConfig newBuildingConfig : buildingConfig.expand()) {
-//                boolean addIt = false;
-//                for (Map<Integer, List<String>> BCContent : seen) {
-//                    for (Integer floorNumber : BCContent.keySet()) {
-//                        for (String item : BCContent.get(floorNumber)) {
-//                            if (!newBuildingConfig.getCopyOfFloors().get(floorNumber).contains(item)) {
-//                                addIt = true;
-//                                break;
-//                            }
-//                        }
-//                        for (String item : newBuildingConfig.getCopyOfFloors().get(floorNumber)) {
-//                            if (!BCContent.get(floorNumber).contains(item)) {
-//                                addIt = true;
-//                                break;
-//                            }
-//                        }
-//                    }
-//                }
-//                if (addIt) {
-//                    queue.add(new QueueNode(newBuildingConfig, currentNode.getDistanceFromStart() + 1));
-////                    System.out.println("add");
-//                } else {
+
+                boolean skip = false;
+
+                for (Map<Integer, List<String>> anotherFloors : seen) {
+                    if (newBuildingConfig.containsSameItemsAs(anotherFloors)) {
+                        skip = true;
+                        break;
+                    }
+                }
+                if (!skip) {
+                    queue.add(new QueueNode(newBuildingConfig, currentNode.getDistanceFromStart() + 1));
+                    seen.add(newBuildingConfig.getCopyOfFloors());
+//                    System.out.println("add");
+                } else {
 //                    System.out.println("skip");
-//                }
-queue.add(new QueueNode(newBuildingConfig, currentNode.getDistanceFromStart() + 1));
+                }
             }
 
+//System.out.println(initialBuildingConfig.containsSameItemsAs(initialBuildingConfig.getCopyOfFloors()));
         }
-
     }
 }
