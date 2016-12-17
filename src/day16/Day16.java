@@ -1,13 +1,16 @@
 package day16;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Day16 {
 
-    private List<Boolean> data = new ArrayList<>();
+    private List<Boolean> data;
 
     public Day16(String initString) {
+        data = new ArrayList<>();
+
         for (Character c : initString.toCharArray()) {
             if (c == '0') {
                 data.add(Boolean.FALSE);
@@ -29,7 +32,6 @@ public class Day16 {
 
     public void generateData(Integer length) {
         while (data.size() < length) {
-//            System.out.println(this);
             this.extendData();
         }
 
@@ -40,18 +42,21 @@ public class Day16 {
     }
 
     public void generateCheckSum() {
+        /*
+        *If data is stored as ArrayList, convert it to a Linked List
+        *As we are going to pop items from beginning of a list, LinkedList is much faster
+         */
+        if (data instanceof ArrayList) {
+            data = new LinkedList(data);
+        }
+
         Integer originalDataSize = data.size();
 
         for (int i = 0; i < originalDataSize / 2; i++) {
-//            System.out.println("Reducing: "+i);
-            data.add(data.get(0).equals(data.get(1)));
-            data.remove(0);
-            data.remove(0);
+            data.add(data.remove(0).equals(data.remove(0)));
         }
 
-        
         if ((data.size() % 2) != 1) {
-            System.out.println(data.size());
             generateCheckSum();
         }
     }
@@ -71,12 +76,16 @@ public class Day16 {
     }
 
     public static void solve() {
-        Day16 d = new Day16("01000100010010111");
-//        d.generateData(1000000);
-        d.generateData(35651584);
-//        System.out.println("Original data:" + d);
-        d.generateCheckSum();
-//        System.out.println("Checksum:" + d);
-    }
+        final String PUZZLE_INPUT = "01000100010010111";
 
+        Day16 puzzle1 = new Day16(PUZZLE_INPUT);
+        puzzle1.generateData(272);
+        puzzle1.generateCheckSum();
+        System.out.println("First puzzle: " + puzzle1);
+
+        Day16 puzzle2 = new Day16(PUZZLE_INPUT);
+        puzzle2.generateData(35651584);
+        puzzle2.generateCheckSum();
+        System.out.println("Second puzzle: " + puzzle2);
+    }
 }
