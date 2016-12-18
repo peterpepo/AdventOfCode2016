@@ -12,18 +12,22 @@ public class BuildingConfig {
     private Map<Integer, List<String>> floors = new HashMap<Integer, List<String>>();
     private int currentFloor;
 
+    public int getCurrentFloor() {
+        return currentFloor;
+    }
+
     private boolean haveBeenThere(Map<Integer, List<String>> anotherConfig) {
-        for(BuildingConfig bc:getAlreadySeen()) {
-            for(Integer floorNumber:bc.floors.keySet()) {
-                for(String item:bc.floors.get(floorNumber)) {
-                    if(!anotherConfig.containsValue(item)) {
+        for (BuildingConfig bc : getAlreadySeen()) {
+            for (Integer floorNumber : bc.floors.keySet()) {
+                for (String item : bc.floors.get(floorNumber)) {
+                    if (!anotherConfig.containsValue(item)) {
                         return false;
                     }
                 }
             }
-            for(Integer floorNumber:anotherConfig.keySet()) {
-                for(String item:anotherConfig.get(floorNumber)) {
-                    if(!bc.floors.containsValue(item)) {
+            for (Integer floorNumber : anotherConfig.keySet()) {
+                for (String item : anotherConfig.get(floorNumber)) {
+                    if (!bc.floors.containsValue(item)) {
                         return false;
                     }
                 }
@@ -31,7 +35,7 @@ public class BuildingConfig {
         }
         return true;
     }
-    
+
     private List<BuildingConfig> getAlreadySeen() {
         ArrayList<BuildingConfig> seen = new ArrayList<>();
         if (parent != null) {
@@ -42,11 +46,10 @@ public class BuildingConfig {
         return seen;
     }
 
-    
     public Map<Integer, List<String>> getCopyOfFloors() {
         return this.copyFloors();
     }
-    
+
     private Map<Integer, List<String>> copyFloors() {
         Map<Integer, List<String>> newFloors = new HashMap<Integer, List<String>>();
 
@@ -96,9 +99,11 @@ public class BuildingConfig {
                 Map<Integer, List<String>> newFloorItems = this.copyFloors();
                 newFloorItems = this.replaceFloorContent(newFloorItems, takeAwayCombinations.get(i), currentFloor, currentFloor + 1);
 
-                BuildingConfig newBuildingConfig = new BuildingConfig(newFloorItems, currentFloor + 1, this);
+//                BuildingConfig newBuildingConfig = new BuildingConfig(newFloorItems, currentFloor + 1, this);
+                BuildingConfig newBuildingConfig = new BuildingConfig(newFloorItems, currentFloor + 1);
                 if (newBuildingConfig.isValid()) {
                     newBuildingConfigs.add(newBuildingConfig);
+//                    System.out.println("is valid");
                 }
 //                System.out.println(newBuildingConfig);
 //                System.out.println(newBuildingConfig.isValid());
@@ -109,7 +114,8 @@ public class BuildingConfig {
                 Map<Integer, List<String>> newFloorItems = this.copyFloors();
                 newFloorItems = this.replaceFloorContent(newFloorItems, takeAwayCombinations.get(i), currentFloor, currentFloor - 1);
 
-                BuildingConfig newBuildingConfig = new BuildingConfig(newFloorItems, currentFloor - 1, this);
+//                BuildingConfig newBuildingConfig = new BuildingConfig(newFloorItems, currentFloor - 1, this);
+                BuildingConfig newBuildingConfig = new BuildingConfig(newFloorItems, currentFloor - 1);
                 if (newBuildingConfig.isValid()) {
                     newBuildingConfigs.add(newBuildingConfig);
                 }
@@ -200,28 +206,61 @@ public class BuildingConfig {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        for (Integer floor : floors.keySet()) {
-            sb.append(floor + ":");
-            for (String item : floors.get(floor)) {
-                sb.append(item + ";");
+//        for (Integer floor : floors.keySet()) {
+//            sb.append(floor + ":");
+//            for (String item : floors.get(floor)) {
+//                sb.append(item + ";");
+//            }
+//            sb.append("\n");
+//        }
+        for (int i = 4; i >= 1; i--) {
+            sb.append("F" + i + " ");
+
+            for (String item : floors.get(i)) {
+                sb.append(item + ".");
             }
             sb.append("\n");
+
         }
         return sb.toString();
     }
-    
-    public boolean containsSameItemsAs( Map<Integer, List<String>> floorsOther) {
+
+    public boolean containsSameItemsAs(Map<Integer, List<String>> floorsOther) {
 //        Map<Integer, List<String>> floorsOther = other.getCopyOfFloors();
-        
-        for(int i=1; i<=4; i++) {
-            for(String item:floorsOther.get(i)) {
-                if(!floors.get(i).contains(item)) {
+
+        for (int i = 1; i <= 4; i++) {
+            for (String item : floorsOther.get(i)) {
+                if (!floors.get(i).contains(item)) {
                     return false;
                 }
             }
-            for(String item:floors.get(i)) {
-                if(!floorsOther.get(i).contains(item)) {
+            for (String item : floors.get(i)) {
+                if (!floorsOther.get(i).contains(item)) {
                     return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean containsSameItemsAs(Map<Integer, List<String>> floorsOther, Integer floor, Integer otherfloor) {
+//        Map<Integer, List<String>> floorsOther = other.getCopyOfFloors();
+
+        for (int i = 1; i <= 4; i++) {
+            for (String item : floorsOther.get(i)) {
+                if (!floors.get(i).contains(item)) {
+                    if (floor.equals(otherfloor)) {
+                        return false;
+                    }
+
+                }
+            }
+            for (String item : floors.get(i)) {
+                if (!floorsOther.get(i).contains(item)) {
+                    if (floor.equals(otherfloor)) {
+                        return false;
+                    }
+
                 }
             }
         }
