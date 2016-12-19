@@ -40,7 +40,6 @@ public class Day19 {
                         break;
                     }
 
-                    
                 }
                 // If we didn't find anyone, the game is over
                 if (stolenPresentsCount == 0) {
@@ -56,7 +55,76 @@ public class Day19 {
         // Find elf, who has all the presents
         for (int i = 0; i < elves.length; i++) {
             if (elves[i] != 0) {
-                System.out.println(i+1 + ". elf has all " + elves[i] + " presents");
+                System.out.println(i + 1 + ". elf has all " + elves[i] + " presents");
+            }
+        }
+
+    }
+
+    public static void solve2() {
+
+        // Number of elves, total
+        // Test input
+        int[] elves = new int[3017957];
+        // Puzzle01 input
+//        int[] elves = new int[3017957];
+
+        // Give each elf one present
+        for (int i = 0; i < elves.length; i++) {
+            elves[i] = 1;
+        }
+
+        int currentElf = 0;
+        boolean endOfTheGame = false;
+        int elvesRemaining = elves.length;
+        
+        while (!endOfTheGame) {
+            currentElf = (currentElf % elves.length);
+
+            // If the elf still has something, he's part of the game and can steal
+            if (elves[currentElf] != 0) {
+
+                int stolenPresentsCount = 0;
+
+                // Find elve across the circle (if there are two, steal from closer)
+                int skipElves = Math.floorDiv(elvesRemaining, 2);
+//                System.out.println("Skip elves: "+skipElves);
+                int adjustedPosition=-1;
+                for(int i=0; i<elves.length-1; i++) {
+                    adjustedPosition = (currentElf + i + 1) % elves.length;
+                    
+                    if(elves[adjustedPosition]!=0) {
+                        skipElves--;
+                    }
+                    
+                    // We found the right one
+                    if(skipElves==0) {
+                        break;
+                    }
+                }
+                
+                stolenPresentsCount = elves[adjustedPosition];
+                elves[adjustedPosition]=0;
+                elvesRemaining--;
+
+                
+                
+                
+                // If we didn't find anyone, the game is over
+                if (stolenPresentsCount == 0) {
+                    endOfTheGame = true;
+                }
+
+                // Increment elve's present count by amount, he just stole
+                elves[currentElf] += stolenPresentsCount;
+            }
+            currentElf++;
+        }
+
+        // Find elf, who has all the presents
+        for (int i = 0; i < elves.length; i++) {
+            if (elves[i] != 0) {
+                System.out.println(i + 1 + ". elf has all " + elves[i] + " presents");
             }
         }
 

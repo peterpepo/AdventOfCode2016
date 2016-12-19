@@ -40,7 +40,7 @@ public class AdventOfCode2016 {
 //        System.out.println("~~~DAY-18~~~");
 //        day18.Day18.solve();
         System.out.println("~~~DAY-19~~~");
-        day19.Day19.solve();
+        day19.Day19.solve2();
 
     }
 
