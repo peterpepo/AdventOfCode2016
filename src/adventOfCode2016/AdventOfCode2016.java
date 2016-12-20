@@ -39,8 +39,10 @@ public class AdventOfCode2016 {
 //        day17.Day17.solve();
 //        System.out.println("~~~DAY-18~~~");
 //        day18.Day18.solve();
-        System.out.println("~~~DAY-19~~~");
-        day19.Day19.solve2();
+//        System.out.println("~~~DAY-19~~~");
+//        day19.Day19.solve2();
+        System.out.println("~~~DAY-20~~~");
+        day20.Day20.solve();
 
     }
 
