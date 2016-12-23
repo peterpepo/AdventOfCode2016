@@ -140,7 +140,7 @@ public class Scrambler {
 
     public void reversePart(int start, int end) {
         for (int i = 0; i < Math.floorDiv(end - start + 1, 2); i++) {
-            swapByIndex(i, end - i);
+            swapByIndex(start+i, end - i);
         }
     }
 
