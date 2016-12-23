@@ -2,7 +2,7 @@ package day21;
 
 public class Scrambler {
 
-    private char[] text;
+    protected char[] text;
     int offset = 0;
 
     public Scrambler(String text) {
@@ -42,7 +42,7 @@ public class Scrambler {
         return newText;
     }
 
-    private int getOffsetIndex(int refIndex) {
+    protected int getOffsetIndex(int refIndex) {
         int newIndex = (refIndex + offset) % text.length;
 
         if (newIndex < 0) {
@@ -58,7 +58,7 @@ public class Scrambler {
         }
     }
 
-    private void rotateLeft() {
+    protected void rotateLeft() {
         this.offset++;
     }
 
@@ -68,7 +68,7 @@ public class Scrambler {
         }
     }
 
-    private void rotateRight() {
+    protected void rotateRight() {
         this.offset--;
     }
 
