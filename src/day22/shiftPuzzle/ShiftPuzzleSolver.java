@@ -1,13 +1,16 @@
 package day22.shiftPuzzle;
 
+import day22.Node;
+import day22.Point;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
-import day22.*;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
-public class ShiftPuzzle {
+public class ShiftPuzzleSolver {
+
+    PriorityQueue<QueueNode<PuzzleState>> puzzleQueue = new PriorityQueue<>(new QueueNodeComparator());
 
     private static List<PuzzleState> visitedStateCache = new LinkedList<>();
 
@@ -20,7 +23,13 @@ public class ShiftPuzzle {
         return false;
     }
 
-    private static void solve15v2() {
+    public ShiftPuzzleSolver(Map<Point, Node> initMap) {
+        PuzzleState initState = new PuzzleState(initMap);
+        puzzleQueue.add(new QueueNode(initState, 0, 0));
+        visitedStateCache.add(initState);
+    }
+
+    public void solve() {
 
         Node p1 = new Node("Point-1", 1, 1);
         Node p2 = new Node("Point-2", 2, 2);
@@ -75,29 +84,20 @@ public class ShiftPuzzle {
         targetMap.put(new Point(3, 2), p12);
         targetMap.put(new Point(3, 3), empty);
 
-        PuzzleState initState = new PuzzleState(initMap, targetMap);
-
-        PriorityQueue<QueueNode<PuzzleState>> puzzleQueue = new PriorityQueue<>(new QueueNodeComparator());
-
-        puzzleQueue.add(
-                new QueueNode(initState, 0, 0));
-        double counter = 0;
-
-        visitedStateCache.add(initState);
-
+        int counter = 0;
         while (!puzzleQueue.isEmpty()) {
             if (counter % 1000 == 0) {
                 System.out.println("[INFO]\tQueue size: " + puzzleQueue.size());
                 System.out.println("[INFO]\tVisited-cache size: " + visitedStateCache.size());
             }
             counter++;
+            
             QueueNode<PuzzleState> currentNode = puzzleQueue.remove();
 
             PuzzleState currentPuzzle = currentNode.getPuzzle();
             int currentDistance = currentNode.getDistance();
 
             if (currentPuzzle.isEmptyInUpperRight()) {
-//            if (currentPuzzle.isEmptyInUpperRight()) {
                 System.out.println("===Solution with lenght of " + currentNode.getDistance() + " has been found.===");
 //                System.out.println(currentPuzzle.traceSteps());
                 break;
@@ -105,40 +105,29 @@ public class ShiftPuzzle {
 
             PuzzleState up = currentPuzzle.moveUp();
             if (up != null && !alreadyVisitedState(up)) {
-//                puzzleQueue.add(new QueueNode(up, currentDistance + 1, up.getDislocatedPiecesCount()));
                 puzzleQueue.add(new QueueNode(up, currentDistance + 1, currentDistance + up.getManhattan()));
                 visitedStateCache.add(up);
             }
 
             PuzzleState down = currentPuzzle.moveDown();
             if (down != null && !alreadyVisitedState(down)) {
-//                puzzleQueue.add(new QueueNode(down, currentDistance + 1, down.getDislocatedPiecesCount()));
                 puzzleQueue.add(new QueueNode(down, currentDistance + 1, currentDistance + down.getManhattan()));
                 visitedStateCache.add(down);
             }
 
             PuzzleState left = currentPuzzle.moveLeft();
             if (left != null && !alreadyVisitedState(left)) {
-//                puzzleQueue.add(new QueueNode(left, currentDistance + 1, left.getDislocatedPiecesCount()));
                 puzzleQueue.add(new QueueNode(left, currentDistance + 1, currentDistance + left.getManhattan()));
                 visitedStateCache.add(left);
             }
 
             PuzzleState right = currentPuzzle.moveRight();
             if (right != null && !alreadyVisitedState(right)) {
-//                puzzleQueue.add(new QueueNode(right, currentDistance + 1, right.getDislocatedPiecesCount()));
                 puzzleQueue.add(new QueueNode(right, currentDistance + 1, currentDistance + right.getManhattan()));
                 visitedStateCache.add(right);
             }
         }
         System.out.println("===Queue size after " + puzzleQueue.size());
-    }
-
-    public static void solve() {
-
-//        solve8();
-//        solve15();
-        solve15v2();
     }
 
 }

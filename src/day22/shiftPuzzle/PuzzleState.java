@@ -13,7 +13,7 @@ public class PuzzleState {
 
     private int maxX = 0, maxY = 0;
 
-    private PuzzleState(Map<Point, Node> boardConfig) {
+    public PuzzleState(Map<Point, Node> boardConfig) {
         // Copies source map
         this.boardConfig.putAll(boardConfig);
         for (Point p : this.boardConfig.keySet()) {
@@ -68,7 +68,7 @@ public class PuzzleState {
     }
 
     public boolean isEmptyInUpperRight() {
-        return boardConfig.get(new Point(maxX-1, 0)).isEmpty();
+        return boardConfig.get(new Point(maxX - 1, 0)).isEmpty();
     }
 
     // Hamming distance prioritization
@@ -115,7 +115,8 @@ public class PuzzleState {
     }
 
     public PuzzleState moveUp() {
-        if (getEmpty().getY() > 0) {
+        if (getEmpty().getY() > 0
+                && boardConfig.get(new Point(getEmpty().getX(), getEmpty().getY() - 1)).getUsed() <= boardConfig.get(getEmpty()).getCapacity()) {
             PuzzleState newPuzzle = new PuzzleState(boardConfig, this);
 
             newPuzzle.boardConfig.replace(new Point(getEmpty().getX(), getEmpty().getY()), boardConfig.get(new Point(getEmpty().getX(), getEmpty().getY() - 1)));
@@ -127,7 +128,8 @@ public class PuzzleState {
     }
 
     public PuzzleState moveDown() {
-        if (getEmpty().getY() < maxY) {
+        if (getEmpty().getY() < maxY
+                && boardConfig.get(new Point(getEmpty().getX(), getEmpty().getY() +1)).getUsed() <= boardConfig.get(getEmpty()).getCapacity()) {
             PuzzleState newPuzzle = new PuzzleState(boardConfig, this);
 
             newPuzzle.boardConfig.replace(new Point(getEmpty().getX(), getEmpty().getY()), boardConfig.get(new Point(getEmpty().getX(), getEmpty().getY() + 1)));
@@ -139,7 +141,8 @@ public class PuzzleState {
     }
 
     public PuzzleState moveLeft() {
-        if (getEmpty().getX() > 0) {
+        if (getEmpty().getX() > 0
+                && boardConfig.get(new Point(getEmpty().getX()-1, getEmpty().getY())).getUsed() <= boardConfig.get(getEmpty()).getCapacity()) {
             PuzzleState newPuzzle = new PuzzleState(boardConfig, this);
 
             newPuzzle.boardConfig.replace(new Point(getEmpty().getX(), getEmpty().getY()), boardConfig.get(new Point(getEmpty().getX() - 1, getEmpty().getY())));
@@ -151,7 +154,8 @@ public class PuzzleState {
     }
 
     public PuzzleState moveRight() {
-        if (getEmpty().getX() < maxX) {
+        if (getEmpty().getX() < maxX
+                && boardConfig.get(new Point(getEmpty().getX()+1, getEmpty().getY())).getUsed() <= boardConfig.get(getEmpty()).getCapacity()) {
             PuzzleState newPuzzle = new PuzzleState(boardConfig, this);
 
             newPuzzle.boardConfig.replace(new Point(getEmpty().getX(), getEmpty().getY()), boardConfig.get(new Point(getEmpty().getX() + 1, getEmpty().getY())));
