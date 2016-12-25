@@ -35,7 +35,7 @@ public class ShiftPuzzleSolver {
 
         int counter = 0;
         while (!puzzleQueue.isEmpty()) {
-            if (counter % 1000 == 0) {
+            if (counter % 10 == 0) {
                 System.out.println("[INFO]\tQueue size: " + puzzleQueue.size());
                 System.out.println("[INFO]\tVisited-cache size: " + visitedStateCache.size());
             }
@@ -88,7 +88,7 @@ public class ShiftPuzzleSolver {
         visitedStateCache.add(firstPartSolution);
                 int counter = 0;
         while (!puzzleQueue.isEmpty()) {
-            if (counter % 1000 == 0) {
+            if (counter % 10 == 0) {
                 System.out.println("[INFO]\tQueue size: " + puzzleQueue.size());
                 System.out.println("[INFO]\tVisited-cache size: " + visitedStateCache.size());
             }

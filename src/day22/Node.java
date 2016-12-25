@@ -11,6 +11,10 @@ public class Node {
         this.capacity = capacity;
         this.used = used;
     }
+    
+    public Node getClone() {
+        return new Node (name, capacity, used);
+    }
 
     public Node(String name) {
         this.name = name;
@@ -40,5 +44,19 @@ public class Node {
     public String toString() {
         return ("name: " + getName() + "\t capacity: " + getCapacity() + "\t used: " + getUsed() + "\t free:" + getFree());
     }
+    
+    public void delete() {
+        this.used = 0;
+    }
+    
+    public void delete(int amount) {
+        this.used -= amount;
+    }
+    
+    public void copy(int amount) {
+        this.used += amount;
+    }
+    
+    
 
 }
