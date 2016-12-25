@@ -64,23 +64,33 @@ public class Day22 {
         System.out.println("[INFO]\tFirst puzzle: " + nodePairs.size());
 
         // Puzzle02
-        for (NodePair pair:nodePairs) {
-            for(Map.Entry<Point, Node> es:nodes.entrySet()) {
-                if(es.getValue().equals(pair.node1)) {
-                    System.out.print(es.getKey());
-                    break;
-                }
-            }
-            System.out.print("---");
-            for(Map.Entry<Point, Node> es:nodes.entrySet()) {
-                if(es.getValue().equals(pair.node2)) {
-                    System.out.print(es.getKey());
-                    break;
+//        for (NodePair pair:nodePairs) {
+//            for(Map.Entry<Point, Node> es:nodes.entrySet()) {
+//                if(es.getValue().equals(pair.node1)) {
+//                    System.out.print(es.getKey());
+//                    break;
+//                }
+//            }
+//            System.out.print("---");
+//            for(Map.Entry<Point, Node> es:nodes.entrySet()) {
+//                if(es.getValue().equals(pair.node2)) {
+//                    System.out.print(es.getKey());
+//                    break;
+//                }
+//            }
+//            System.out.println();
+//        }
+        for (int y = 0; y < 26; y++) {
+            for (int x = 0; x < 36; x++) {
+                System.out.print(nodes.get(new Point(x, y)).getNice());
+                if (x < 35) {
+                    System.out.print("\t");
                 }
             }
             System.out.println();
+
         }
-        
+
         // Test
 //        Node p1 = new Node("Point-1", 1, 1);
 //        Node p2 = new Node("Point-2", 2, 2);
@@ -116,16 +126,13 @@ public class Day22 {
 //        initMap.put(new Point(3, 1), p5);
 //        initMap.put(new Point(3, 2), p15);
 //        initMap.put(new Point(3, 3), empty);
-    
-
         Map<Point, Node> initMap = new HashMap<>();
 
         ShiftPuzzleSolver puzzle2 = new ShiftPuzzleSolver(nodes);
 
         puzzle2.solveUpperRight();
 //        puzzle2.solveUpperLeft();
-        
-        
+
     }
 
 }

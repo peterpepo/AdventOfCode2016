@@ -58,5 +58,13 @@ public class Node {
     }
     
     
+    public String getNice() {
+        if(used>92) {
+            return ("X\t");
+        } else {
+            return (getUsed()+"/"+getCapacity());
+        }
+    }
+    
 
 }
