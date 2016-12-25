@@ -1,6 +1,7 @@
 package day22;
 
 import commons.PuzzleInputReader;
+import day22.shiftPuzzle.ShiftPuzzle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,8 +24,10 @@ public class Day22 {
         Matcher m;
 
         // Puzzle input
-        PuzzleInputReader puzzleInput = new PuzzleInputReader("src/day22/Day22-puzzleInput.txt");
+//        PuzzleInputReader puzzleInput = new PuzzleInputReader("src/day22/Day22-puzzleInput.txt");
 
+        // Test input
+        PuzzleInputReader puzzleInput = new PuzzleInputReader("src/day22/day22-puzzle2TestInput.txt");
         for (String s : puzzleInput.getListOfLines()) {
             m = p.matcher(s);
             if (m.find()) {
@@ -59,6 +62,28 @@ public class Day22 {
         }
         System.out.println("[INFO]\tFirst puzzle: " + nodePairs.size());
 
+        // Puzzle02
+        for (NodePair pair:nodePairs) {
+            for(Map.Entry<Point, Node> es:nodes.entrySet()) {
+                if(es.getValue().equals(pair.node1)) {
+                    System.out.print(es.getKey());
+                    break;
+                }
+            }
+            System.out.print("---");
+            for(Map.Entry<Point, Node> es:nodes.entrySet()) {
+                if(es.getValue().equals(pair.node2)) {
+                    System.out.print(es.getKey());
+                    break;
+                }
+            }
+            System.out.println();
+        }
+        
+        // Test
+        ShiftPuzzle.solve();
+        
+        
     }
 
 }
