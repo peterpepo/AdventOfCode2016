@@ -13,7 +13,7 @@ public class Day23 {
 
         // Create map of registers, indexed by Character A-D
         Map<Character, Integer> registers = new HashMap<>();
-        registers.put('a', new Integer(7));
+        registers.put('a', new Integer(12));
         registers.put('b', new Integer(0));
         registers.put('c', new Integer(0));
         registers.put('d', new Integer(0));
@@ -62,7 +62,7 @@ public class Day23 {
         Matcher m;
 
         while (i < instructions.size()) {
-            System.out.println("[INFO]\tCurrent instruction: " + i);
+//            System.out.println("[INFO]\tCurrent instruction: " + i);
 //            System.out.println("[INFO]\tA: " + registers.get('a') + "\tB: " + registers.get('b') + "\tC: " + registers.get('c') + "\tD:" + registers.get('d'));
             String instruction = instructions.get(i);
 
