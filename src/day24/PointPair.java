@@ -18,6 +18,15 @@ public class PointPair {
     public Point getPoint2() {
         return point2;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + this.point1.getX() + this.point1.getY();
+        hash = 19 * hash + this.point2.getX() + this.point2.getY();
+        return hash;
+    }
+    
     
     
 
