@@ -68,7 +68,11 @@ public class PuzzleState {
     }
 
     public boolean isEmptyInUpperRight() {
-        return boardConfig.get(new Point(maxX - 1, 0)).isEmpty();
+        return boardConfig.get(new Point(maxX, 0)).isEmpty();
+    }
+    
+    public boolean isEmptyInUpperLeft() {
+        return boardConfig.get(new Point(0, 0)).isEmpty();
     }
 
     // Hamming distance prioritization
@@ -170,9 +174,9 @@ public class PuzzleState {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        for (int y = 0; y < maxY; y++) {
-            for (int x = 0; x < maxX; x++) {
-                sb.append(boardConfig.get(new Point(x, y)).getName());
+        for (int y = 0; y <= maxY; y++) {
+            for (int x = 0; x <= maxX; x++) {
+                sb.append(boardConfig.get(new Point(x, y)).getUsed());
                 if (x < maxX) {
                     sb.append("\t");
                 }

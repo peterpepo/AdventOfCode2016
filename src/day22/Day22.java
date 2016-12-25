@@ -82,44 +82,47 @@ public class Day22 {
         }
         
         // Test
-                Node p1 = new Node("Point-1", 1, 1);
-        Node p2 = new Node("Point-2", 2, 2);
-        Node p3 = new Node("Point-3", 3, 3);
-        Node p4 = new Node("Point-4", 4, 4);
-        Node p5 = new Node("Point-5", 5, 5);
-        Node p6 = new Node("Point-6", 6, 6);
-        Node p7 = new Node("Point-7", 7, 7);
-        Node p8 = new Node("Point-8", 8, 8);
-        Node p9 = new Node("Point-9", 9, 9);
-        Node p10 = new Node("Point-10", 10, 10);
-        Node p11 = new Node("Point-11", 11, 11);
-        Node p12 = new Node("Point-12", 12, 12);
-        Node p13 = new Node("Point-13", 13, 13);
-        Node p14 = new Node("Point-14", 14, 14);
-        Node p15 = new Node("Point-15", 15, 15);
-        Node empty = new Node("EMPTY", 16, 0);
-
+//        Node p1 = new Node("Point-1", 1, 1);
+//        Node p2 = new Node("Point-2", 2, 2);
+//        Node p3 = new Node("Point-3", 3, 3);
+//        Node p4 = new Node("Point-4", 4, 4);
+//        Node p5 = new Node("Point-5", 5, 5);
+//        Node p6 = new Node("Point-6", 6, 6);
+//        Node p7 = new Node("Point-7", 7, 7);
+//        Node p8 = new Node("Point-8", 8, 8);
+//        Node p9 = new Node("Point-9", 9, 9);
+//        Node p10 = new Node("Point-10", 10, 10);
+//        Node p11 = new Node("Point-11", 11, 11);
+//        Node p12 = new Node("Point-12", 12, 12);
+//        Node p13 = new Node("Point-13", 13, 13);
+//        Node p14 = new Node("Point-14", 14, 14);
+//        Node p15 = new Node("Point-15", 15, 15);
+//        Node empty = new Node("EMPTY", 16, 0);
+//
+//        Map<Point, Node> initMap = new HashMap<>();
+//        initMap.put(new Point(0, 0), p11);
+//        initMap.put(new Point(0, 1), p8);
+//        initMap.put(new Point(0, 2), p10);
+//        initMap.put(new Point(0, 3), p6);
+//        initMap.put(new Point(1, 0), p14);
+//        initMap.put(new Point(1, 1), p4);
+//        initMap.put(new Point(1, 2), p3);
+//        initMap.put(new Point(1, 3), p7);
+//        initMap.put(new Point(2, 0), p1);
+//        initMap.put(new Point(2, 1), p2);
+//        initMap.put(new Point(2, 2), p12);
+//        initMap.put(new Point(2, 3), p13);
+//        initMap.put(new Point(3, 0), p9);
+//        initMap.put(new Point(3, 1), p5);
+//        initMap.put(new Point(3, 2), p15);
+//        initMap.put(new Point(3, 3), empty);
+    
         Map<Point, Node> initMap = new HashMap<>();
-        initMap.put(new Point(0, 0), p11);
-        initMap.put(new Point(0, 1), p8);
-        initMap.put(new Point(0, 2), p10);
-        initMap.put(new Point(0, 3), p6);
-        initMap.put(new Point(1, 0), p14);
-        initMap.put(new Point(1, 1), p4);
-        initMap.put(new Point(1, 2), p3);
-        initMap.put(new Point(1, 3), p7);
-        initMap.put(new Point(2, 0), p1);
-        initMap.put(new Point(2, 1), p2);
-        initMap.put(new Point(2, 2), p12);
-        initMap.put(new Point(2, 3), p13);
-        initMap.put(new Point(3, 0), p9);
-        initMap.put(new Point(3, 1), p5);
-        initMap.put(new Point(3, 2), p15);
-        initMap.put(new Point(3, 3), empty);
-        
-        ShiftPuzzleSolver puzzle2 = new ShiftPuzzleSolver(initMap);
 
-        puzzle2.solve();
+        ShiftPuzzleSolver puzzle2 = new ShiftPuzzleSolver(nodes);
+
+        puzzle2.solveUpperRight();
+        puzzle2.solveUpperLeft();
         
         
     }
