@@ -25,10 +25,10 @@ public class Day22 {
         Matcher m;
 
         // Puzzle input
-//        PuzzleInputReader puzzleInput = new PuzzleInputReader("src/day22/Day22-puzzleInput.txt");
+        PuzzleInputReader puzzleInput = new PuzzleInputReader("src/day22/Day22-puzzleInput.txt");
 
         // Test input
-        PuzzleInputReader puzzleInput = new PuzzleInputReader("src/day22/day22-puzzle2TestInput.txt");
+//        PuzzleInputReader puzzleInput = new PuzzleInputReader("src/day22/day22-puzzle2TestInput.txt");
         for (String s : puzzleInput.getListOfLines()) {
             m = p.matcher(s);
             if (m.find()) {
@@ -117,12 +117,13 @@ public class Day22 {
 //        initMap.put(new Point(3, 2), p15);
 //        initMap.put(new Point(3, 3), empty);
     
+
         Map<Point, Node> initMap = new HashMap<>();
 
         ShiftPuzzleSolver puzzle2 = new ShiftPuzzleSolver(nodes);
 
         puzzle2.solveUpperRight();
-        puzzle2.solveUpperLeft();
+//        puzzle2.solveUpperLeft();
         
         
     }

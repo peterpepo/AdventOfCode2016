@@ -47,6 +47,7 @@ public class ShiftPuzzleSolver {
             int currentDistance = currentNode.getDistance();
 
             if (currentPuzzle.isEmptyInUpperRight()) {
+//            if (currentPuzzle.isDataUpperLeft()) {
                 System.out.println("===Solution with lenght of " + currentNode.getDistance() + " has been found.===");
                 firstPartSolution = currentPuzzle;
 //                System.out.println(currentPuzzle.traceSteps());
@@ -55,25 +56,25 @@ public class ShiftPuzzleSolver {
 
             PuzzleState up = currentPuzzle.moveUp();
             if (up != null && !alreadyVisitedState(up)) {
-                puzzleQueue.add(new QueueNode(up, currentDistance + 1, currentDistance + up.getManhattan()));
+                puzzleQueue.add(new QueueNode(up, currentDistance + 1, currentDistance +1 + up.getManhattan()));
                 visitedStateCache.add(up);
             }
 
             PuzzleState down = currentPuzzle.moveDown();
             if (down != null && !alreadyVisitedState(down)) {
-                puzzleQueue.add(new QueueNode(down, currentDistance + 1, currentDistance + down.getManhattan()));
+                puzzleQueue.add(new QueueNode(down, currentDistance + 1, currentDistance + 1 + down.getManhattan()));
                 visitedStateCache.add(down);
             }
 
             PuzzleState left = currentPuzzle.moveLeft();
             if (left != null && !alreadyVisitedState(left)) {
-                puzzleQueue.add(new QueueNode(left, currentDistance + 1, currentDistance + left.getManhattan()));
+                puzzleQueue.add(new QueueNode(left, currentDistance + 1, currentDistance + 1+left.getManhattan()));
                 visitedStateCache.add(left);
             }
 
             PuzzleState right = currentPuzzle.moveRight();
             if (right != null && !alreadyVisitedState(right)) {
-                puzzleQueue.add(new QueueNode(right, currentDistance + 1, currentDistance + right.getManhattan()));
+                puzzleQueue.add(new QueueNode(right, currentDistance + 1, currentDistance +1+ right.getManhattan()));
                 visitedStateCache.add(right);
             }
         }
@@ -83,10 +84,10 @@ public class ShiftPuzzleSolver {
     public void solveUpperLeft() {
         puzzleQueue.clear();
         visitedStateCache.clear();
-        
+
         puzzleQueue.add(new QueueNode(firstPartSolution, 0, 0));
         visitedStateCache.add(firstPartSolution);
-                int counter = 0;
+        int counter = 0;
         while (!puzzleQueue.isEmpty()) {
             if (counter % 10 == 0) {
                 System.out.println("[INFO]\tQueue size: " + puzzleQueue.size());
