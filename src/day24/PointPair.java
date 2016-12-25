@@ -6,7 +6,7 @@ public class PointPair {
     Point point1;
     Point point2;
 
-    public PointPair(Point node1, Point node2) {
+    public PointPair(Point point1, Point point2) {
         this.point1 = point1;
         this.point2 = point2;
     }
