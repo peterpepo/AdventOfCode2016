@@ -31,26 +31,30 @@ public class ShiftPuzzleSolver {
         visitedStateCache.add(initState);
     }
 
+    int maxDistance = 0;
     public void solveUpperRight() {
 
-        int counter = 0;
         while (!puzzleQueue.isEmpty()) {
 
             QueueNode<PuzzleState> currentNode = puzzleQueue.remove();
-            if (counter % 10 == 0) {
-                System.out.println("[INFO]\tQueue size: " + puzzleQueue.size());
-                System.out.println("[INFO]\tVisited-cache size: " + visitedStateCache.size());
-                System.out.println("[INFO]\tCurrent-distance: " + currentNode.getDistance());
-            }
-            counter++;
+//            if (counter % 10 == 0) {
+//                System.out.println("[INFO]\tQueue size: " + puzzleQueue.size());
+//                System.out.println("[INFO]\tVisited-cache size: " + visitedStateCache.size());
+//                System.out.println("[INFO]\tCurrent-distance: " + currentNode.getDistance());
+//            }
+//            counter++;
 
             PuzzleState currentPuzzle = currentNode.getPuzzle();
             int currentDistance = currentNode.getDistance();
+            if(currentDistance>maxDistance) {
+                maxDistance = currentDistance;
+                System.out.println("[INFO]\tCurrent distance:"+maxDistance);
+            }
 
 //            if(currentDistance >=26) {
 //                System.out.println("Distance >= 26");
 //            }
-System.out.println("[INFO]\tCurrent-distance: " + currentNode.getDistance());
+//System.out.println("[INFO]\tCurrent-distance: " + currentNode.getDistance());
             if (currentPuzzle.isEmptyInUpperRight()) {
 //            if (currentPuzzle.isDataUpperLeft()) {
                 System.out.println("===Solution with lenght of " + currentNode.getDistance() + " has been found.===");
