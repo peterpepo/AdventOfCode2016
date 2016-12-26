@@ -20,11 +20,11 @@ public class Building {
     }
 
     private void moveUp() {
-        floorNumber--;
+        floorNumber++;
     }
 
     private void moveDown() {
-        floorNumber++;
+        floorNumber--;
     }
 
     public Building(Map<Integer, Floor> floors, int floorNumber) {

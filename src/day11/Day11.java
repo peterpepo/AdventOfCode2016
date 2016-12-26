@@ -23,7 +23,7 @@ public class Day11 {
         tf1.addItem(tthaliumMicrochip);
         tf1.addItem(tthaliumGenerator);
 
-        System.out.println("Is safe?: " + tf1.isSafe());
+//        System.out.println("Is safe?: " + tf1.isSafe());
 
         Set<Item> initSet = new HashSet<>();
         initSet.add(tthaliumMicrochip);
@@ -31,22 +31,22 @@ public class Day11 {
         initSet.add(thydrogenMicrochip);
         initSet.add(tthaliumGenerator);
 
-        for (Set<Item> row : Utils.getCombinationsOfLength(initSet, 2)) {
-            System.out.println(row);
-        }
+//        for (Set<Item> row : Utils.getCombinationsOfLength(initSet, 2)) {
+//            System.out.println(row);
+//        }
 
-        String s1 = "abc";
-        System.out.println(s1.hashCode());
-        String s2 = "abc";
-        s2 = "cde";
-        s2 = "abc";
-        System.out.println(s2.hashCode());
+//        String s1 = "abc";
+//        System.out.println(s1.hashCode());
+//        String s2 = "abc";
+//        s2 = "cde";
+//        s2 = "abc";
+//        System.out.println(s2.hashCode());
 
         // Test puzzle
-        Item hm = new Item("HM", ItemType.MICROCHIP);
-        Item hg = new Item("HG", ItemType.GENERATOR);
-        Item lm = new Item("LM", ItemType.MICROCHIP);
-        Item lg = new Item("LG", ItemType.GENERATOR);
+        Item hm = new Item("Hydrogen", ItemType.MICROCHIP);
+        Item hg = new Item("Hydrogen", ItemType.GENERATOR);
+        Item lm = new Item("Lithium", ItemType.MICROCHIP);
+        Item lg = new Item("Lithium", ItemType.GENERATOR);
 
         Map<Integer, Floor> initialFloorMap = new HashMap<>();
         Floor f1 = new Floor();
@@ -92,6 +92,19 @@ public class Day11 {
 
         }
 
+        
+        /*
+        TEST2
+        */
+        
+        Floor testFloor0 = new Floor();
+        testFloor0.addItem(lm);
+        System.out.println("Is safe: "+testFloor0.isSafe());
+        
+        Floor testFloor1 = new Floor();
+        testFloor1.addItem(hg);
+        testFloor1.addItem(hm);
+        System.out.println("Is safe: "+testFloor1.isSafe());
     }
 
 }
