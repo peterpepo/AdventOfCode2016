@@ -73,7 +73,7 @@ public class Building {
                 // If it is a valid floor number
                 if (newFloorNumber >= 0 && newFloorNumber <= 3) {
                     Building newBuilding = this.getCopy();
-                    newBuilding.floors.get(floorNumber).removeItems(takingAway);
+                    newBuilding.floors.get(this.floorNumber).removeItems(takingAway);
                     newBuilding.floors.get(newFloorNumber).addItems(takingAway);
                     if (move[i] == -1) {
                         newBuilding.moveDown();
@@ -97,10 +97,10 @@ public class Building {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("currentFloor:" + floorNumber + ";");
+        sb.append("CF:" + floorNumber + ";");
 
         for (Integer floorNumber : floors.keySet()) {
-            sb.append("floor" + floorNumber + ":");
+            sb.append("F" + floorNumber + ":");
             List<String> generators = new ArrayList<>();
             List<String> microchips = new ArrayList<>();
 

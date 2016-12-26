@@ -2,6 +2,8 @@ package day11;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -10,54 +12,53 @@ public class Day11 {
 
     public static void solve() {
         /*
-        TESTING
+        REAL DATA
          */
-        Item thydrogenGenenerator = new Item("Hydrogen", ItemType.GENERATOR);
-        Item thydrogenMicrochip = new Item("Hydrogen", ItemType.MICROCHIP);
-        Item tthaliumMicrochip = new Item("Thalium", ItemType.MICROCHIP);
-        Item tthaliumGenerator = new Item("Thalium", ItemType.GENERATOR);
+        Item tg = new Item("Thulium", ItemType.GENERATOR);
+        Item tm = new Item("Thulium", ItemType.MICROCHIP);
 
-        Floor tf1 = new Floor();
-        tf1.addItem(thydrogenMicrochip);
-        tf1.addItem(thydrogenGenenerator);
-        tf1.addItem(tthaliumMicrochip);
-        tf1.addItem(tthaliumGenerator);
+        Item pg = new Item("Plutonium", ItemType.GENERATOR);
+        Item pm = new Item("Plutonium", ItemType.MICROCHIP);
 
-//        System.out.println("Is safe?: " + tf1.isSafe());
+        Item sg = new Item("Strontium", ItemType.GENERATOR);
+        Item sm = new Item("Strontium", ItemType.MICROCHIP);
 
-        Set<Item> initSet = new HashSet<>();
-        initSet.add(tthaliumMicrochip);
-        initSet.add(thydrogenGenenerator);
-        initSet.add(thydrogenMicrochip);
-        initSet.add(tthaliumGenerator);
+        Item prg = new Item("Promethium", ItemType.GENERATOR);
+        Item prm = new Item("Promethium", ItemType.MICROCHIP);
 
-//        for (Set<Item> row : Utils.getCombinationsOfLength(initSet, 2)) {
-//            System.out.println(row);
-//        }
+        Item rg = new Item("Ruthenium", ItemType.GENERATOR);
+        Item rm = new Item("Ruthenium", ItemType.MICROCHIP);
 
-//        String s1 = "abc";
-//        System.out.println(s1.hashCode());
-//        String s2 = "abc";
-//        s2 = "cde";
-//        s2 = "abc";
-//        System.out.println(s2.hashCode());
+        Item eg = new Item("Elerium", ItemType.GENERATOR);
+        Item em = new Item("Elerium", ItemType.MICROCHIP);
 
-        // Test puzzle
-        Item hm = new Item("Hydrogen", ItemType.MICROCHIP);
-        Item hg = new Item("Hydrogen", ItemType.GENERATOR);
-        Item lm = new Item("Lithium", ItemType.MICROCHIP);
-        Item lg = new Item("Lithium", ItemType.GENERATOR);
+        Item dg = new Item("Dilithium", ItemType.GENERATOR);
+        Item dm = new Item("Dilithium", ItemType.MICROCHIP);
 
         Map<Integer, Floor> initialFloorMap = new HashMap<>();
         Floor f1 = new Floor();
-        f1.addItem(hm);
-        f1.addItem(lm);
+        f1.addItem(tg);
+        f1.addItem(tm);
+        f1.addItem(pg);
+        f1.addItem(sg);
+//        f1.addItem(eg);
+//        f1.addItem(em);
+//        f1.addItem(dg);
+//        f1.addItem(dm);
+
         Floor f2 = new Floor();
-        f2.addItem(hg);
+        f2.addItem(pm);
+        f2.addItem(sm);
+
         Floor f3 = new Floor();
-        f3.addItem(lg);
+        f3.addItem(prg);
+        f3.addItem(prm);
+        f3.addItem(rg);
+        f3.addItem(rm);
+
         Floor f4 = new Floor();
-        
+
+
         initialFloorMap.put(0, f1);
         initialFloorMap.put(1, f2);
         initialFloorMap.put(2, f3);
@@ -66,16 +67,18 @@ public class Day11 {
         Set<Building> visitedStates = new HashSet<>();
         Building initialBuilding = new Building(initialFloorMap, 0);
 
-        PriorityQueue<QueueNode<Building>> queue = new PriorityQueue<>(new QueueNodeComparator());
+//        PriorityQueue<QueueNode<Building>> queue = new PriorityQueue<>(new QueueNodeComparator());
+        List<QueueNode<Building>> queue = new LinkedList<>();
 
         // Mark Point as visited
         visitedStates.add(initialBuilding);
 
         queue.add(new QueueNode(initialBuilding, 0, 0));
-        
+
         while (!queue.isEmpty()) {
-            System.out.println("[INFO]\tQueue size: " + queue.size());
-            QueueNode<Building> currentNode = queue.remove();
+//            System.out.println("[INFO]\tQueue size: " + queue.size());
+//            QueueNode<Building> currentNode = queue.remove();
+            QueueNode<Building> currentNode = queue.remove(0);
 
             // If we find solution in this node, print it and end
             if (currentNode.getContent().isSolution()) {
@@ -92,19 +95,6 @@ public class Day11 {
 
         }
 
-        
-        /*
-        TEST2
-        */
-        
-        Floor testFloor0 = new Floor();
-        testFloor0.addItem(lm);
-        System.out.println("Is safe: "+testFloor0.isSafe());
-        
-        Floor testFloor1 = new Floor();
-        testFloor1.addItem(hg);
-        testFloor1.addItem(hm);
-        System.out.println("Is safe: "+testFloor1.isSafe());
     }
 
 }
