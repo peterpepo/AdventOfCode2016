@@ -3,12 +3,27 @@ package day24;
 import java.util.Objects;
 
 public class PointPair {
+
     Point point1;
     Point point2;
 
     public PointPair(Point point1, Point point2) {
-        this.point1 = point1;
-        this.point2 = point2;
+        if (point1.getX() < point2.getX()) {
+            this.point1 = point1;
+            this.point2 = point2;
+        } else if (point1.getX() > point2.getX()) {
+            this.point1 = point2;
+            this.point2 = point1;
+        } else {
+            if (point1.getY() < point2.getY()) {
+                this.point1 = point1;
+                this.point2 = point2;
+            } else {
+                this.point1 = point2;
+                this.point2 = point1;
+            }
+        }
+
     }
 
     public Point getPoint1() {
@@ -22,13 +37,10 @@ public class PointPair {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 19 * hash + this.point1.getX() + this.point1.getY();
-        hash = 19 * hash + this.point2.getX() + this.point2.getY();
+        hash = hash * Objects.hashCode(this.point1)
+                * hash + Objects.hashCode(this.point2);
         return hash;
     }
-    
-    
-    
 
     @Override
     public boolean equals(Object obj) {
@@ -42,14 +54,11 @@ public class PointPair {
             return false;
         }
         final PointPair other = (PointPair) obj;
-        if((!Objects.equals(this.point1, other.point2) || !Objects.equals(this.point2, other.point1)) && (!Objects.equals(this.point1, other.point1) || !Objects.equals(this.point2, other.point2))) {
+        if ((!Objects.equals(this.point1, other.point2) || !Objects.equals(this.point2, other.point1)) && (!Objects.equals(this.point1, other.point1) || !Objects.equals(this.point2, other.point2))) {
             return false;
         }
-        
-        
+
         return true;
     }
-    
-    
-    
+
 }

@@ -56,7 +56,7 @@ public class Day24 {
 
     /*
     Credits: http://stackoverflow.com/a/10305419
-    */
+     */
     private static <E> List<List<E>> generatePerm(List<E> original) {
         if (original.size() == 0) {
             List<List<E>> result = new ArrayList<List<E>>();
@@ -76,23 +76,29 @@ public class Day24 {
         return returnValue;
     }
 
-    public static void solve() {
+    public static void solvePuzzle(int puzzleNum) {
         /*
         Load Map
          */
-//        PuzzleInputReader puzzleInput = new PuzzleInputReader("src/day24/Day24-puzzleInput.txt");
-        PuzzleInputReader puzzleInput = new PuzzleInputReader("src/day24/Day24-testInput.txt");
+        PuzzleInputReader puzzleInput = new PuzzleInputReader("src/day24/Day24-puzzleInput.txt");
+//        PuzzleInputReader puzzleInput = new PuzzleInputReader("src/day24/Day24-testInput.txt");
 
         /*
         Discover all vents in the map
          */
         List<Point> vents = new ArrayList<>();
 
+        Point initialPosition = null;
+
         for (int y = 0; y < puzzleInput.getListOfLines().size(); y++) {
             for (int x = 0; x < puzzleInput.getListOfLines().get(y).length(); x++) {
                 if (Character.isDigit(puzzleInput.getListOfLines().get(y).charAt(x))) {
+                    // In case we find ZERO, mark it as initial point
+                    if (puzzleInput.getListOfLines().get(y).charAt(x) == '0') {
+                        initialPosition = new Point(x, y);
+                    }
+                    // Add coordinations of discovered vent to list
                     Point newPoint = new Point(x, y);
-                    System.out.println(newPoint);
                     vents.add(newPoint);
                 }
             }
@@ -116,56 +122,56 @@ public class Day24 {
 
         /*
         Print distances between Points
+        Uncomment to debug your puzzle
          */
-        for (PointPair pp : distances.keySet()) {
-            System.out.println("[DISTANCE]\t" + pp.getPoint1().toString() + "\t->\t" + pp.getPoint2().toString() + ": " + distances.get(pp));
-        }
+//        for (PointPair pp : distances.keySet()) {
+//            System.out.println("[DIST]\t" + pp.getPoint1().toString() + "->" + pp.getPoint2().toString() + ": " + distances.get(pp));
+//        }
 
         /*
         Find the shortest path, try every possible combination
          */
         List<Point> ventsExceptStart = new ArrayList<>(vents);
-        // TODO: Hardcoded
-//        Point startVent = new Point(1,1);
-        Point toRemove=null;
-        for(Point p:ventsExceptStart) {
-            if (p.equals(new Point(1,1))) { 
-                toRemove=p;
-                break;
-            }
-        }
-        ventsExceptStart.remove(toRemove);
-        
+
+        // Remove initial position, we always start there
+        ventsExceptStart.remove(initialPosition);
+
         List<List<Point>> allPossibleCombinations = generatePerm(ventsExceptStart);
         int minimumLength = Integer.MAX_VALUE;
-        
-        for(List<Point> currentSequence:allPossibleCombinations) {
+
+        for (List<Point> currentSequence : allPossibleCombinations) {
             Point startVent = null;
             int currentDistance = 0;
-            
-            for(Point nextPoint:currentSequence) {
-                if(startVent==null) {
-                    startVent = new Point(1,1);
-                }
-                if(startVent.equals(nextPoint)) {
-                    break;
+
+            for (Point nextPoint : currentSequence) {
+                if (startVent == null) {
+                    startVent = initialPosition;
                 }
                 try {
-                    currentDistance+=distances.get(new PointPair(startVent, nextPoint));
+                    currentDistance += distances.get(new PointPair(startVent, nextPoint));
                 } catch (NullPointerException e) {
-                    System.out.println("[ERROR]\t"+startVent+"->"+nextPoint);
+                    System.out.println("[ERROR]\t" + startVent + "->" + nextPoint);
                 }
                 startVent = nextPoint;
             }
-            if(currentDistance < minimumLength) {
+            /*
+            Puzzle02
+            Add additional length to starting point
+             */
+            if (puzzleNum == 2) {
+                currentDistance += distances.get(new PointPair(startVent, new Point(171, 7)));
+            }
+            if (currentDistance < minimumLength) {
                 minimumLength = currentDistance;
             }
-            System.out.println("Distance found: "+currentDistance);
         }
-        System.out.println("[PUZZLE1]\tMinimum distance: "+minimumLength);
-        
-        
+        System.out.println("[PUZZLE"+puzzleNum+"]\tMinimum distance: " + minimumLength);
 
+    }
+    
+    public static void solve() {
+        solvePuzzle(1);
+        solvePuzzle(2);
     }
 
 }
