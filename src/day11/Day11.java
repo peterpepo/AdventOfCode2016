@@ -41,10 +41,10 @@ public class Day11 {
         f1.addItem(tm);
         f1.addItem(pg);
         f1.addItem(sg);
-//        f1.addItem(eg);
-//        f1.addItem(em);
-//        f1.addItem(dg);
-//        f1.addItem(dm);
+        f1.addItem(eg);
+        f1.addItem(em);
+        f1.addItem(dg);
+        f1.addItem(dm);
 
         Floor f2 = new Floor();
         f2.addItem(pm);
@@ -65,6 +65,8 @@ public class Day11 {
         initialFloorMap.put(3, f4);
 
         Set<Building> visitedStates = new HashSet<>();
+        Set<Integer> seenValues = new HashSet<>();
+        
         Building initialBuilding = new Building(initialFloorMap, 0);
 
 //        PriorityQueue<QueueNode<Building>> queue = new PriorityQueue<>(new QueueNodeComparator());
@@ -72,6 +74,7 @@ public class Day11 {
 
         // Mark Point as visited
         visitedStates.add(initialBuilding);
+        seenValues.add(initialBuilding.getValue());
 
         queue.add(new QueueNode(initialBuilding, 0, 0));
 
@@ -87,9 +90,11 @@ public class Day11 {
             }
 
             for (Building newBuilding : currentNode.getContent().expand()) {
-                if (!visitedStates.contains(newBuilding)) {
+//                if (!visitedStates.contains(newBuilding)) {
+                if (!visitedStates.contains(newBuilding) && !seenValues.contains(newBuilding.getValue())) {
                     queue.add(new QueueNode(newBuilding, currentNode.getDistance() + 1, currentNode.getDistance() + 1));
                     visitedStates.add(newBuilding);
+                    seenValues.add(newBuilding.getValue());
                 }
             }
 
