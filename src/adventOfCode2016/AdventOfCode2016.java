@@ -23,8 +23,8 @@ public class AdventOfCode2016 {
 //        day09.Day09.solve();
 //        System.out.println("~~~DAY-10~~~");
 //        day10.Day10.solve();
-//        System.out.println("~~~DAY-11~~~");
-//        day11.Day11.solve();
+        System.out.println("~~~DAY-11~~~");
+        day11.Day11.solve();
 //        System.out.println("~~~DAY-12~~~");
 //        day12.Day12.solve();
 //        System.out.println("~~~DAY-13~~~");
@@ -35,8 +35,8 @@ public class AdventOfCode2016 {
 //        day15.Day15.solve();
 //        System.out.println("~~~DAY-16~~~");
 //        day16.Day16.solve();
-        System.out.println("~~~DAY-17~~~");
-        day17.Day17.solve();
+//        System.out.println("~~~DAY-17~~~");
+//        day17.Day17.solve();
 //        System.out.println("~~~DAY-18~~~");
 //        day18.Day18.solve();
 //        System.out.println("~~~DAY-19~~~");

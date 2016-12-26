@@ -1,111 +1,97 @@
 package day11;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Set;
 
 public class Day11 {
 
     public static void solve() {
+        /*
+        TESTING
+         */
+        Item thydrogenGenenerator = new Item("Hydrogen", ItemType.GENERATOR);
+        Item thydrogenMicrochip = new Item("Hydrogen", ItemType.MICROCHIP);
+        Item tthaliumMicrochip = new Item("Thalium", ItemType.MICROCHIP);
+        Item tthaliumGenerator = new Item("Thalium", ItemType.GENERATOR);
 
-        List<QueueNode> queue = new LinkedList<>();
-// TEST
-//        List<String> floor1 = new ArrayList<>();
-//        floor1.add("HM");
-//        floor1.add("LM");
-//
-//        List<String> floor2 = new ArrayList<>();
-//        floor2.add("HG");
-//
-//        List<String> floor3 = new ArrayList<>();
-//        floor3.add("LG");
-//
-//        List<String> floor4 = new ArrayList<>();
+        Floor tf1 = new Floor();
+        tf1.addItem(thydrogenMicrochip);
+        tf1.addItem(thydrogenGenenerator);
+        tf1.addItem(tthaliumMicrochip);
+        tf1.addItem(tthaliumGenerator);
 
-        // Start Point
-        List<String> floor1 = new ArrayList<>();
-        floor1.add("TG");
-        floor1.add("TM");
-        floor1.add("PG");
-        floor1.add("SG");
-        //PUZZLE-02
-        floor1.add("EG");
-        floor1.add("EM");
-        floor1.add("DG");
-        floor1.add("DM");
+        System.out.println("Is safe?: " + tf1.isSafe());
 
-        List<String> floor2 = new ArrayList<>();
-        floor2.add("PM");
-        floor2.add("SM");
+        Set<Item> initSet = new HashSet<>();
+        initSet.add(tthaliumMicrochip);
+        initSet.add(thydrogenGenenerator);
+        initSet.add(thydrogenMicrochip);
+        initSet.add(tthaliumGenerator);
 
-        List<String> floor3 = new ArrayList<>();
-        floor3.add("AG");
-        floor3.add("AM");
-        floor3.add("RG");
-        floor3.add("RM");
+        for (Set<Item> row : Utils.getCombinationsOfLength(initSet, 2)) {
+            System.out.println(row);
+        }
 
-        List<String> floor4 = new ArrayList<>();
+        String s1 = "abc";
+        System.out.println(s1.hashCode());
+        String s2 = "abc";
+        s2 = "cde";
+        s2 = "abc";
+        System.out.println(s2.hashCode());
 
-        Map<Integer, List<String>> initialMap = new HashMap<Integer, List<String>>();
-        initialMap.put(1, floor1);
-        initialMap.put(2, floor2);
-        initialMap.put(3, floor3);
-        initialMap.put(4, floor4);
-        BuildingConfig initialBuildingConfig = new BuildingConfig(initialMap, 1);
+        // Test puzzle
+        Item hm = new Item("HM", ItemType.MICROCHIP);
+        Item hg = new Item("HG", ItemType.GENERATOR);
+        Item lm = new Item("LM", ItemType.MICROCHIP);
+        Item lg = new Item("LG", ItemType.GENERATOR);
 
-//         UNCOMMENT !
-        queue.add(new QueueNode(initialBuildingConfig, 0));
+        Map<Integer, Floor> initialFloorMap = new HashMap<>();
+        Floor f1 = new Floor();
+        f1.addItem(hm);
+        f1.addItem(lm);
+        Floor f2 = new Floor();
+        f2.addItem(hg);
+        Floor f3 = new Floor();
+        f3.addItem(lg);
+        Floor f4 = new Floor();
+        
+        initialFloorMap.put(0, f1);
+        initialFloorMap.put(1, f2);
+        initialFloorMap.put(2, f3);
+        initialFloorMap.put(3, f4);
 
-        // Don't process those, which we have seen
-//        List<Map<Integer, List<String>>> seen = new ArrayList<Map<Integer, List<String>>>();
-        List<BuildingConfig> seen = new ArrayList<>();
+        Set<Building> visitedStates = new HashSet<>();
+        Building initialBuilding = new Building(initialFloorMap, 0);
 
-        seen.add(initialBuildingConfig);
+        PriorityQueue<QueueNode<Building>> queue = new PriorityQueue<>(new QueueNodeComparator());
+
+        // Mark Point as visited
+        visitedStates.add(initialBuilding);
+
+        queue.add(new QueueNode(initialBuilding, 0, 0));
         
         while (!queue.isEmpty()) {
-            QueueNode currentNode = queue.remove(0);
-            BuildingConfig buildingConfig = currentNode.getBuildingConfig();
-//            seen.add(buildingConfig);
+            System.out.println("[INFO]\tQueue size: " + queue.size());
+            QueueNode<Building> currentNode = queue.remove();
 
-//            System.out.println("CURRENT\n"+buildingConfig);
-            
             // If we find solution in this node, print it and end
-            if (buildingConfig.isSolution()) {
-                System.out.println("Puzzle1: " + currentNode.getDistanceFromStart());
+            if (currentNode.getContent().isSolution()) {
+                System.out.println("Puzzle1: " + currentNode.getDistance());
                 break;
             }
-            
-//            System.out.println("Distance: "+currentNode.getDistanceFromStart());
-//            if(currentNode.getDistanceFromStart()==11) {
-//                System.out.println(buildingConfig);
-//            }
-//            seen.add(buildingConfig.getCopyOfFloors());
-            // Go every possible way
-            for (BuildingConfig newBuildingConfig : buildingConfig.expand()) {
-                
-                boolean skip = false;
 
-                for (BuildingConfig anotherFloors : seen) {
-                    if (newBuildingConfig.containsSameItemsAs(anotherFloors.getCopyOfFloors()) && newBuildingConfig.getCurrentFloor()==anotherFloors.getCurrentFloor()) {
-                        skip = true;
-                        break;
-                    }
+            for (Building newBuilding : currentNode.getContent().expand()) {
+                if (!visitedStates.contains(newBuilding)) {
+                    queue.add(new QueueNode(newBuilding, currentNode.getDistance() + 1, currentNode.getDistance() + 1));
+                    visitedStates.add(newBuilding);
                 }
-                if (!skip) {
-                    queue.add(new QueueNode(newBuildingConfig, currentNode.getDistanceFromStart() + 1));
-                    seen.add(newBuildingConfig);
-//                    System.out.println("added");
-//                    System.out.println(newBuildingConfig);
-                } else {
-//                    System.out.println("skipped");
-//                    System.out.println(newBuildingConfig);
-                }
-//                System.out.println(newBuildingConfig);
             }
 
-//System.out.println(initialBuildingConfig.containsSameItemsAs(initialBuildingConfig.getCopyOfFloors()));
         }
+
     }
+
 }

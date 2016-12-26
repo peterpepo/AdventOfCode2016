@@ -1,23 +1,31 @@
 package day11;
 
-public class QueueNode {
+public class QueueNode<T> {
 
-    private BuildingConfig buildingConfig;
-    private int distanceFromStart;
+    private T building;
+    private int distance;
+    private int priority;
 
-    public QueueNode(BuildingConfig buildingConfig, int distanceFromStart) {
-        this.buildingConfig = buildingConfig;
-        this.distanceFromStart = distanceFromStart;
-    }
-    
-    public int getDistanceFromStart() {
-        return this.distanceFromStart;
+    public QueueNode(T building, int distance) {
+        this.building = building;
+        this.distance = distance;
     }
 
-    public BuildingConfig getBuildingConfig() {
-        return buildingConfig;
+    public QueueNode(T building, int distance, int priority) {
+        this(building, distance);
+        this.priority = priority;
     }
-    
-    
+
+    public T getContent() {
+        return building;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
 
 }
