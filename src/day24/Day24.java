@@ -17,13 +17,9 @@ public class Day24 {
 
         PriorityQueue<QueueNode<Point>> mazeQueue = new PriorityQueue<>(new QueueNodeComparator());
 
-        // Start Point
-//        Point startPoint = new Point(171, 7);
         // Mark Point as visited
         testMaze.visit(startPoint.getX(), startPoint.getY());
 
-        // Final Point
-//        Point endPoint = new Point(165, 19);
         // Start Node - Point[0,0]
         mazeQueue.add(new QueueNode(startPoint, 0, 0));
 
@@ -46,7 +42,6 @@ public class Day24 {
                 if (testMaze.isOnMap(newX, newY) && !testMaze.isVisited(newX, newY) && testMaze.getFree(newX, newY)) {
                     testMaze.visit(newX, newY);
                     mazeQueue.add(new QueueNode(new Point(newX, newY), currentNode.getDistance() + 1, currentNode.getDistance() + 1));
-//                    System.out.println("[NEW]\t" + new Point(newX, newY));
                 }
             }
 
@@ -80,7 +75,9 @@ public class Day24 {
         /*
         Load Map
          */
+        // Puzzle Map
         PuzzleInputReader puzzleInput = new PuzzleInputReader("src/day24/Day24-puzzleInput.txt");
+        // Test Map
 //        PuzzleInputReader puzzleInput = new PuzzleInputReader("src/day24/Day24-testInput.txt");
 
         /*
@@ -159,16 +156,16 @@ public class Day24 {
             Add additional length to starting point
              */
             if (puzzleNum == 2) {
-                currentDistance += distances.get(new PointPair(startVent, new Point(171, 7)));
+                currentDistance += distances.get(new PointPair(startVent, initialPosition));
             }
             if (currentDistance < minimumLength) {
                 minimumLength = currentDistance;
             }
         }
-        System.out.println("[PUZZLE"+puzzleNum+"]\tMinimum distance: " + minimumLength);
+        System.out.println("[PUZZLE" + puzzleNum + "]\tMinimum distance: " + minimumLength);
 
     }
-    
+
     public static void solve() {
         solvePuzzle(1);
         solvePuzzle(2);
